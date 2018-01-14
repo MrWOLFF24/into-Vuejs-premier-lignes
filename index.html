@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue -js</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Description of the page less than 150 characters">
+        <style>
+            body {
+                text-align: center;
+                background: #cccdd1;
+            }
+            #appTest hr {
+                width: 50%;
+                border: 2px solid #B4D455;
+            }
+            #exo1 hr {
+                width: 50%;
+                border: 2px solid #B4D455;
+            }
+        </style>
+        <script src="./node_modules/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1 class="title">Hello World</h1>
+            <h2 class="title">{{ titre }}</h2>
+
+            <p v-if="compteur >= 500">
+                WHATA
+            </p>
+
+            <p>
+                <button @click="increment()" class="btn">Incrementer</button>
+                {{ compteur }}
+            </p>
+
+            <p>
+                {{ nombre }}
+                <button @click="decrementer()">decrementer</button>
+
+                <span v-if="nombre = 0"> c'est fini</span>
+            </p>
+
+            <hr>
+
+            <h2>Liste des chaussures</h2>
+            <ul>
+                <li v-for="pouet in chaussures">
+                    {{ pouet }}
+                </li>
+            </ul>
+            <hr>
+            <p>
+                {{ chat.nom }}
+            </p>
+
+            <hr>
+
+            <h2>Mini tp</h2>
+            <ol>
+                <li v-for="(prop, key) in objets">
+                    {{ key }} : {{ prop }}
+                </li>
+            </ol>
+        </div>
+
+        <hr>
+        <div id="appTest">
+            <h1>{{ title }}</h1>
+            <p :title="message">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, incidunt!
+            </p>
+            <br>
+            <hr>
+            <p v-if="seen">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Asperiores eius esse itaque iure magni, nihil,
+                optio pariatur perspiciatis quisquam rerum saepe soluta.
+                Earum excepturi ipsa maxime odit possimus quidem voluptates.
+            </p>
+            <br>
+            <hr>
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+            <br>
+            <hr>
+            <p>{{ message }}</p>
+            <button @click="reverseMessage">Reverse Message</button>
+            <br>
+            <hr>
+            <p>{{ messageInput }}</p>
+            <input v-model="messageInput" type="text">
+            <br>
+            <hr>
+            <ol>
+                <todo-item v-for="item in groceryList" :todo="item" :key="item.id"></todo-item>
+            </ol>
+        </div>
+
+        <br>
+        <br>
+        <hr>
+        <br>
+        <br>
+        <div id="exo1">
+            <h1>Vue js - TP Variables</h1>
+            <br>
+            <hr>
+            <h2>{{ titre }}</h2>
+            <hr>
+            <p>Mon nom est {{ name }} et j'ai {{ age }} ans</p>
+            <hr>
+            <button @click="random">Random Value</button>
+            <p>{{ randomValue }}</p>
+            <hr>
+            <img :src="myImg" :alt="description">
+            <hr>
+            <input type="text" :value="name">
+            <br>
+            <hr>
+            <br>
+            <input v-model="inputVal" type="text" placeholder="Entrer une nom">
+            <br>
+            <ul>
+                <state-list v-for="state in filterState" :state="state" :key="state.id"></state-list>
+            </ul>
+
+
+        </div>
+
+        <script>
+            Vue.component('state-list',{
+                props: ['state'],
+                template: "<li>{{ state.nom }}</li>"
+            });
+
+            const exo1 = new Vue({
+                el: "#exo1",
+                data: {
+                    titre: "Hello Vue",
+                    name: "haroon",
+                    age: 27 * 3,
+                    randomValue: "",
+                    inputVal: "",
+                    myImg: "http://lorempicsum.com/futurama/350/200/1",
+                    description: "image futurama",
+                    etatsDesUSA: [
+                        {nom: "Alabama"},
+                        {nom: "Alaska"},
+                        {nom: "Arizona"},
+                        {nom: "Arkansas"},
+                        {nom: "Californie"},
+                        {nom: "Caroline du Nord"},
+                        {nom: "Caroline du Sud"},
+                        {nom: "Colorado"},
+                        {nom: "Connecticut"},
+                        {nom: "Dakota du Nord"},
+                        {nom: "Dakota du Sud"},
+                        {nom: "Delaware"},
+                        {nom: "Floride"},
+                        {nom: "Georgie"},
+                        {nom: "Hawaii"},
+                        {nom: "Idaho"},
+                        {nom: "Illinois"},
+                        {nom: "Indiana"},
+                        {nom: "Iowa"},
+                        {nom: "Kansas"},
+                        {nom: "Kentucky"},
+                        {nom: "Louisiane"},
+                        {nom: "Maine"},
+                        {nom: "Maryland"},
+                        {nom: "Massachusetts"},
+                        {nom: "Michigan"},
+                        {nom: "Minnesota"},
+                        {nom: "Mississippi"},
+                        {nom: "Missouri"},
+                        {nom: "Montana"},
+                        {nom: "Nebraska"},
+                        {nom: "Nevada"},
+                        {nom: "New Hampshire"},
+                        {nom: "New Jersey"},
+                        {nom: "New York"},
+                        {nom: "Nouveau"},
+                        {nom: "Ohio"},
+                        {nom: "Oklahoma"},
+                        {nom: "Oregon"},
+                        {nom: "Pennsylvanie"},
+                        {nom: "Rhode Island"},
+                        {nom: "Tennessee"},
+                        {nom: "Texas"},
+                        {nom: "Utah"},
+                        {nom: "Vermont"},
+                        {nom: "Virginie"},
+                        {nom: "Virginie-Occidentale"},
+                        {nom: "Washington"},
+                        {nom: "Wisconsin"},
+                        {nom: "Wyoming"}
+                    ]
+                },
+                methods: {
+                    random: function() {
+                        exo1.randomValue = Math.random();
+                    }
+                },
+                computed: {
+                    filterState: function () {
+                        let that = this;
+                        return this.etatsDesUSA.filter(function (name) {
+                            return name.nom.toLowerCase().includes(that.inputVal.toLowerCase());
+                        });
+                    }
+                }
+            });
+
+
+            Vue.component('todo-item', {
+                props: ['todo'],
+                template: "<li>{{ todo.text }}</li>"
+            });
+            const appTest = new Vue({
+                el: "#appTest",
+                data: {
+                    title: "Test Vuejs",
+                    message: "You load this message at " + new Date().toLocaleString(),
+                    messageInput: "",
+                    seen: true,
+                    todos: [
+                        { text: 'Learn JavaScript' },
+                        { text: 'Learn Vue' },
+                        { text: 'Build something awesome' }
+                    ],
+                    groceryList: [
+                        { id: 0, text: 'Légumes' },
+                        { id: 1, text: 'Fromage' },
+                        { id: 2, text: 'Tout ce que les humains sont supposés manger' }
+                    ]
+                },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                },
+            });
+
+
+            /* --------- script Vue js --------- */
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    objets: {
+                        un: "un mac",
+                        deux: "un pc",
+                        trois: "manette xbox",
+                        quatre: "micronde"
+                    },
+                    chat: {
+                       nom: "kitty",
+                       couleur: "noir",
+                       age: 10
+                    },
+                    titre: "Vive vue JS",
+                    compteur: 0,
+                    nombre: 900,
+                    chaussures: [
+                        "nike",
+                        "adidas",
+                        "crocs",
+                        "boot",
+                    ]
+                },
+                methods: {
+                    increment: function () {
+                       console.log("ici --->");
+                       app.compteur += 100;
+                       console.log(this.compteur);
+                    },
+                    decrementer: function () {
+                        console.log("ici------>aussi");
+                        app.nombre = (app.nombre -= 100 > 0) ? app.nombre : 0;
+                    }
+                }
+            });
+            console.log(app);
+        </script>
+    </body>
+</html>
